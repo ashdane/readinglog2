@@ -1,0 +1,523 @@
+/* Optimized CSS for ReadingLog */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+  --primary-color: #1a1a2e;
+  --secondary-color: #16213e;
+  --accent-color: #a674ff;
+  --text-color: #f5f5f5;
+  --text-secondary: #d4bfff;
+  --success-color: #6bff8d;
+  --border-radius: 10px;
+  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-color);
+  min-height: 100vh;
+  line-height: 1.6;
+  padding: 20px;
+  background-attachment: fixed;
+}
+
+/* Enhanced dot background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.15) 2px, transparent 2px),
+    radial-gradient(rgba(166, 116, 255, 0.1) 2px, transparent 2px);
+  background-size: 50px 50px, 30px 30px;
+  background-position: 0 0, 15px 15px;
+  z-index: -1;
+  animation: dotMove 90s linear infinite;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5 {
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-shadow: 0 0 10px rgba(166, 116, 255, 0.3);
+}
+
+h1 {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+h2 {
+  font-size: 1.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--accent-color);
+  display: inline-block;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  filter: brightness(1.2);
+  transform: translateY(-3px);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* Common box styles */
+.glass-box {
+  background: rgba(26, 26, 46, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.6s ease-out;
+  transition: transform 0.4s ease;
+}
+
+.glass-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Container layouts */
+.container, .dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.login-box, .signup-box {
+  max-width: 450px;
+  width: 90%;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 2.5rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.page-box {
+  max-width: 800px;
+  width: 90%;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  position: relative;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+.book-selection {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Form elements */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid var(--accent-color);
+  box-shadow: 0 0 20px rgba(166, 116, 255, 0.4);
+}
+
+button, .btn {
+  background: linear-gradient(135deg, #8a2be2, #3758f9);
+  color: white;
+  padding: 15px 25px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(89, 86, 213, 0.4);
+  font-family: 'Montserrat', sans-serif;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(89, 86, 213, 0.6);
+}
+
+/* Dashboard components */
+.stats-area {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  background: rgba(33, 33, 53, 0.5);
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+.stat-card {
+  background: rgba(26, 26, 46, 0.8);
+  padding: 1.2rem;
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--accent-color);
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+  
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+.graph-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+.graph-container {
+  background: rgba(33, 33, 53, 0.5);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+.graph-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: calc(var(--border-radius) - 5px);
+  background: rgba(26, 26, 46, 0.6);
+  padding: 1rem;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+.graph-container img:hover {
+  transform: scale(1.02);
+   border: 1px solid rgba(166, 116, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 116, 255, 0.2);
+}
+
+/* Book selection */
+.book-list {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.book-item button {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* Button containers */
+.action-buttons, .buttons, .reading-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.action-buttons a, .buttons a, .reading-buttons form {
+  flex: 1;
+  min-width: 150px;
+}
+
+.action-buttons button, .buttons button, .reading-buttons button {
+  width: 100%;
+}
+
+/* Progress bar */
+.progress-container {
+  width: 100%;
+  height: 25px;
+  background-color: rgba(26, 26, 46, 0.9);
+  border-radius: 20px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(135deg, #8a2be2, #3758f9);
+  border-radius: 20px;
+  transition: width 1.5s ease;
+  position: relative;
+  animation: progressAnimation 2s ease-out;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: progressGlow 2.5s infinite;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  font-size: 0.9rem;
+}
+
+/* Finished reading message */
+.finished-text {
+  font-size: 1.3rem;
+  text-align: center;
+  margin: 2rem 0;
+  font-weight: 600;
+  color: var(--success-color);
+  animation: pulse 2s infinite;
+  text-shadow: 0 0 10px rgba(107, 255, 141, 0.5);
+}
+
+/* Enhanced reading page styling */
+.page-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(166, 116, 255, 0.3);
+  background: linear-gradient(90deg, #a674ff, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.page-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 3px solid var(--accent-color);
+  background: linear-gradient(125deg, rgba(26, 26, 46, 0.7), rgba(89, 86, 213, 0.2), rgba(26, 26, 46, 0.7));
+  background-size: 200% 200%;
+  animation: slowGradient 20s ease infinite;
+}
+
+.page-content p:first-of-type::first-letter {
+  font-size: 3rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.5rem;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.reading-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 2rem 0 1rem;
+}
+
+.reading-buttons button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.reading-buttons button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(166, 116, 255, 0.5);
+}
+
+.reading-buttons button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+}
+
+.reading-buttons button:hover:before {
+  animation: shine 1.5s infinite;
+}
+
+/* Logout button */
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: auto;
+}
+
+.logout-btn button {
+  background: linear-gradient(45deg, #ff7070, #ff4b4b);
+  padding: 10px 20px;
+  width: auto;
+}
+
+.logout-btn button:hover {
+  background: linear-gradient(45deg, #ff4b4b, #ff7070);
+}
+
+/* Secondary button row - centered Home button */
+.secondary-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.secondary-buttons a {
+  width: auto;
+  margin: 0 auto;
+}
+
+.secondary-buttons button {
+  min-width: 180px;
+  background: linear-gradient(135deg, #7e57c2, #4a00e0);
+}
+
+.secondary-buttons button:hover {
+  background: linear-gradient(135deg, #8a67d8, #5c16ff);
+}
+
+/* Animations */
+@keyframes dotMove {
+  100% { background-position: 0 0, 15px 15px; }
+  0% { background-position: 50px 50px, 65px 65px; }
+}
+
+@keyframes slowGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes progressAnimation {
+  from { width: 0; }
+  to { width: var(--progress-width, 65%); }
+}
+
+@keyframes progressGlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .graph-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  body { padding: 15px; }
+  .container, .login-box, .signup-box, .page-box, .dashboard-container { padding: 1.5rem; width: 95%; }
+  h1 { font-size: 1.8rem; padding: 1rem; }
+  .stats-area { grid-template-columns: 1fr 1fr; }
+  .action-buttons, .buttons, .reading-buttons { flex-direction: column; align-items: center; }
+  button, .btn { max-width: 300px; }
+}
+
+@media (max-width: 480px) {
+  .stats-area, .book-list { grid-template-columns: 1fr; }
+  h2 { font-size: 1.5rem; }
+}

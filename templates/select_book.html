@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select a Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        .logout-btn { position: absolute; top: 20px; right: 20px; width: auto; }
+        .logout-btn button { background: rgba(255,90,95,0.8); padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <!-- Logout button in top right corner -->
+    <a href="{{ url_for('logout') }}" class="logout-btn"><button type="button">Logout</button></a>
+
+    <h1>Select a Book</h1>
+    
+    <div class="book-selection glass-box">
+        <ul class="book-list">
+            {% for book in books %}
+            <li class="book-item">
+                <form action="{{ url_for('dashboard') }}" method="get">
+                    <input type="hidden" name="title" value="{{ book[0] }}">
+                    <button type="submit">{{ book[0] }}</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
