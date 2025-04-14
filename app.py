@@ -232,5 +232,55 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    username = session.get('username')
+    if not username:
+        return redirect(url_for('index'))
+
+    user = User.query.filter_by(username=username).first()
+
+    if request.method == 'POST':
+        # Password Change Logic
+        if 'change_password' in request.form:
+            current_password = request.form['password']
+            new_password = request.form['new_password']  # this is the new password
+            confirm_password = request.form['confirm_password']  # this is to confirm the new password
+
+            # Check if the current password matches the user's existing password in the database
+            if user.password != current_password:
+                return render_template('settings.html', error="Incorrect current password.")
+
+            # Check if the new password matches the confirmation password
+            if new_password != confirm_password:
+                return render_template('settings.html', error="New password and confirmation do not match.")
+
+            # If everything is fine, update the password
+            user.password = new_password
+            db.session.commit()
+
+            return render_template('settings.html', message="Password updated successfully.")
+
+        # Account Deletion Logic
+        elif 'delete_profile' in request.form:
+            # Delete associated progress data before deleting the user
+            UserProgress.query.filter_by(user_id=user.id).delete()
+
+            # Delete user record
+            db.session.delete(user)
+            db.session.commit()
+
+            # Log the user out by clearing the session
+            session.pop('username', None)
+            return redirect(url_for('index'))
+
+    return render_template('settings.html')
+
+
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
