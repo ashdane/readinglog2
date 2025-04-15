@@ -1,20 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - Reading Log</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-<body>
-    <div class="signup-box glass-box">
-        <h2>Create Account</h2>
-        <form method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="{{ url_for('index') }}">Login here</a>.</p>
+<body class="login-page signup-page">
+  <div class="login-container">
+    <div class="login-visual-side">
+      <div class="visual-overlay"></div>
+      <div class="brand-content">
+        <h2 class="brand-title">Reading Log</h2>
+        <p class="brand-tagline">Track your reading journey</p>
+        <div class="brand-decoration"></div>
+      </div>
     </div>
+    <div class="login-form-side">
+      <div class="form-content-wrapper">
+        <div class="login-header">
+          <h1>Create Account</h1>
+          <p>Join Reading Log to track your reading journey</p>
+        </div>
+        
+        {% if error %}
+        <div class="alert-danger">{{ error }}</div>
+        {% endif %}
+        
+        <form action="/signup" method="post" class="login-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <div class="input-container">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-container">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input type="password" id="password" name="password" placeholder="Create a password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <div class="input-container">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+            </div>
+          </div>
+          <button type="submit" class="login-button">
+            <span>Create Account</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </button>
+        </form>
+      </div>
+      <div class="alt-action-wrapper">
+        <div class="alt-action">
+          <p>Already have an account? <a href="/">Sign In</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

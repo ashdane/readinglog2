@@ -6,13 +6,13 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <style>
-        .logout-btn { position: absolute; top: 20px; right: 20px; width: auto; }
-        .logout-btn button { background: rgba(255,90,95,0.8); padding: 10px 20px; }
+        .profile-btn { position: absolute; top: 20px; right: 20px; width: auto; }
+        .profile-btn button { background: linear-gradient(135deg, #7e57c2, #4a00e0); padding: 10px 20px; }
     </style>
 </head>
 <body>
-    <!-- Logout button in top right corner -->
-    <a href="{{ url_for('logout') }}" class="logout-btn"><button type="button">Logout</button></a>
+    <!-- Profile button in top right corner (replacing Logout) -->
+    <a href="{{ url_for('settings') }}" class="profile-btn"><button type="button">Profile</button></a>
 
     <h1>Dashboard</h1>
 
@@ -87,11 +87,6 @@
             <a href="{{ url_for('reset_progress', title=title) }}">
                 <button type="button">Reset Progress</button>
             </a>
-
-            <a href="{{ url_for('settings') }}">
-                <button type="button">Profile</button>
-            </a>            
-
         </div>
     </div>
 </body>

@@ -10,17 +10,16 @@
         .secondary-buttons a { width: 200px; }
         button:disabled { opacity: 0.5; cursor: not-allowed; }
         .reading-buttons { margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem; }
-        .logout-btn { position: absolute; top: 20px; right: 20px; width: auto; }
-        .logout-btn button { background: rgba(255,90,95,0.8); padding: 10px 20px; }
+        .profile-btn { position: absolute; top: 20px; right: 20px; width: auto; }
+        .profile-btn button { background: linear-gradient(135deg, #7e57c2, #4a00e0); padding: 10px 20px; }
     </style>
 </head>
 <body>
-    <!-- Logout button in top right corner -->
-    <a href="{{ url_for('logout') }}" class="logout-btn"><button type="button">Logout</button></a>
+    <!-- Profile button in top right corner (replacing Logout) -->
+    <a href="{{ url_for('settings') }}" class="profile-btn"><button type="button">Profile</button></a>
     
     <div class="page-box glass-box">
         <h2 class="page-title">{{ page.title }}</h2>
-        <h3 class="page-chapter-title">{{ page.chapter_title }}</h3>
         <div class="page-content">{{ page.content }}</div>
 
         <div class="reading-buttons">
@@ -34,7 +33,7 @@
             {% if next_page %}
                 <a href="{{ url_for('read', page_no=next_page) }}"><button type="button">Next Page →</button></a>
             {% else %}
-                <p class="finished-text"> You've finished reading!</p>
+                <p class="finished-text">🎉 You've finished reading!</p>
             {% endif %}
 
             <!-- Dashboard button -->

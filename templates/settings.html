@@ -4,41 +4,80 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Settings - Reading Log</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
-<body>
-  <div class="login-box glass-box">
-    <h1>Settings</h1>
-
-    <div class="login-box glass-box">
-      <form action="{{ url_for('settings') }}" method="POST">
-        <h2>Profile Settings</h2>
-
-        <label for="password">Current Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter current password" required />
-
-        <label for="new_password">New Password</label>
-        <input type="password" id="new_password" name="new_password" placeholder="Enter new password" />
-
-        <label for="confirm_password">Confirm New Password</label>
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm new password" />
-
+<!-- Apply class based on the referring page -->
+<body class="{{ 'library-page' if 'select_book' in referrer else 'dashboard-page' if 'dashboard' in referrer else 'reading-page' if 'read' in referrer else '' }}">
+  <!-- Updated back button to use the referrer URL -->
+  <a href="{{ referrer }}" class="profile-btn back-btn">
+    <button type="button">← Back</button>
+  </a>
+  
+  <div class="settings-container glass-box">
+    <div class="settings-header">
+      <h1>User Settings</h1>
+    </div>
+    
+    <div class="settings-content">
+      {% if message %}
+      <div class="alert alert-success">
+        {{ message }}
+      </div>
+      {% endif %}
+      
+      {% if error %}
+      <div class="alert alert-danger">
+        {{ error }}
+      </div>
+      {% endif %}
+    
+      <form action="{{ url_for('settings') }}" method="POST" class="form-section">
+        <h2>Change Password</h2>
+        
+        <div class="form-group">
+          <label for="password">Current Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your current password" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="new_password">New Password</label>
+          <input type="password" id="new_password" name="new_password" placeholder="Enter your new password" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="confirm_password">Confirm New Password</label>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your new password" required />
+        </div>
+        
         <div class="action-buttons">
-          <button type="submit" name="change_password">Save Changes</button>
-          <a href="{{ url_for('dashboard') }}" class="btn">Cancel</a>
+          <button type="submit" name="change_password" class="success-btn">Update Password</button>
+          <a href="{{ url_for('settings') }}"><button type="button" class="cancel-btn">Cancel</button></a>
         </div>
       </form>
-
-      <hr style="margin: 2rem 0; border-color: rgba(166, 116, 255, 0.2);" />
-
-      <form action="{{ url_for('settings') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+      
+      <div class="logout-section">
+        <h2>Account Options</h2>
+        <p>Click below to sign out of your account.</p>
+        <div class="action-buttons">
+          <a href="{{ url_for('logout') }}"><button type="button" class="logout-button">Logout</button></a>
+        </div>
+      </div>
+      
+      <div class="danger-zone">
         <h2>Danger Zone</h2>
-        <p>Deleting your account will permanently remove all your reading data.</p>
-
-        <div class="action-buttons">
-          <button type="submit" name="delete_profile" style="background: linear-gradient(135deg, #ff4d4d, #e60000);">Delete Account</button>
-        </div>
-      </form>
+        <p>Warning: Deleting your account will permanently remove all your reading data and cannot be undone.</p>
+        
+        <form action="{{ url_for('settings') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+          <div class="form-group">
+            <label for="delete_password">Confirm Password</label>
+            <input type="password" id="delete_password" name="password" placeholder="Enter your password to confirm account deletion" required />
+          </div>
+          
+          <div class="action-buttons">
+            <button type="submit" name="delete_profile" class="delete-btn">Delete My Account</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>

@@ -1,0 +1,499 @@
+.form-section {
+  margin-bottom: 2.5rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.form-section h2 {
+  color: var(--accent-color);
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--accent-color);
+  display: inline-block;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Colored buttons for settings page */
+.success-btn {
+  background: linear-gradient(135deg, var(--success-color), #20c997);
+  transition: all 0.3s ease;
+}
+
+.success-btn:hover {
+  background: linear-gradient(135deg, #2fd151, #25e0ab);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5);
+}
+
+.cancel-btn {
+  background: linear-gradient(135deg, var(--danger-color), var(--warning-color));
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: linear-gradient(135deg, #e74c3c, #fd9644);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(220, 53, 69, 0.5);
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, var(--danger-color), #ff4d5a);
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(135deg, #e04758, #ff667a);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(220, 53, 69, 0.5);
+}
+
+.logout-button {
+  background: linear-gradient(135deg, var(--dark-color), #495057);
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, #7d8892, #57606a);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(108, 117, 125, 0.5);
+}
+
+/* Logout section styling */
+.logout-section {
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  background: rgba(33, 33, 53, 0.5);
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.logout-section h2 {
+  color: var(--accent-color);
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--accent-color);
+  display: inline-block;
+}
+
+.logout-section p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.danger-zone {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  position: relative;
+  animation: fadeIn 0.7s ease-out;
+}
+
+.danger-zone h2 {
+  color: rgba(255, 90, 95, 1);
+  border-bottom-color: rgba(255, 90, 95, 0.5);
+}
+
+.danger-zone p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Alert messages */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.alert-success {
+  background: rgba(40, 167, 69, 0.2);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  color: #75e096;
+}
+
+.alert-danger {
+  background: rgba(220, 53, 69, 0.2);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  color: #ff7a87;
+}
+
+/* Login page special styling */
+/* Optimized Login and Signup Pages with Very Subtle Green Tint */
+body.login-page, body.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: #111827; /* Dark background with very slight green tint */
+}
+
+.login-page .login-box, .signup-page .signup-box {
+  width: 90%;
+  max-width: 420px;
+  padding: 40px;
+  background: #1c2431; /* Very subtle greenish dark box */
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  transform: translateY(0);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.login-page .login-box:hover, .signup-page .signup-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.login-page h1, .signup-page h1 {
+  font-size: 32px;
+  margin-bottom: 35px;
+  color: #f3f4f6;
+  text-align: center;
+  padding: 0;
+  box-shadow: none;
+  position: relative;
+  font-weight: 600;
+  background: linear-gradient(to right, #76aeff, #34d399); /* Blue to subtle green gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+
+.login-page h1:after, .signup-page h1:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(to right, #76aeff, #34d399); /* Blue to subtle green gradient */
+  border-radius: 3px;
+}
+
+.login-page .form-group, .signup-page .form-group {
+  margin-bottom: 22px;
+}
+
+.login-page input, .signup-page input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #2c3648; /* Very subtle greenish input bg */
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  color: #f3f4f6;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.login-page input:focus, .signup-page input:focus {
+  outline: none;
+  border-color: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.1);
+}
+
+.login-page button, .signup-page button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #5a67d8, #059669); /* Indigo to green gradient button */
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(52, 211, 153, 0.1);
+}
+
+.login-page button:hover, .signup-page button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(52, 211, 153, 0.2);
+}
+
+.login-page button:active, .signup-page button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 6px rgba(52, 211, 153, 0.3) inset;
+}
+
+.login-page button::before, .signup-page button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.login-page button:hover::before, .signup-page button:hover::before {
+  left: 100%;
+}
+
+.login-page .alt-action, .signup-page .alt-action {
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-page .alt-action a, .signup-page .alt-action a {
+  color: #60a5fa; /* Blue link with slight green tint */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-page .alt-action a:hover, .signup-page .alt-action a:hover {
+  text-decoration: underline;
+}
+
+.login-page .alert-danger, .signup-page .alert-danger {
+  background: rgba(220, 38, 38, 0.1);
+  border-left: 3px solid #ef4444;
+  color: #fca5a5;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+@media (max-width: 580px) {
+  .login-page .login-box, .signup-page .signup-box { padding: 30px 20px; }
+  .login-page h1, .signup-page h1 { font-size: 26px; }
+}
+
+/* Enhanced Library Page Styling */
+.library-page {
+  background: linear-gradient(135deg, #23292f, #121921);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.library-page::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a674ff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 0h20v20H0V0zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm20 0a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM10 37a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm10-17h20v20H20V20zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z'/%3E%3C/g%3E%3C/svg%3E");
+  z-index: -1;
+}
+
+.library-header {
+  text-align: center;
+  padding: 3.5rem 0 2.5rem;
+  animation: fadeIn 1.2s ease;
+  background: linear-gradient(to bottom, rgba(13, 20, 30, 0.7), transparent);
+  border-bottom: 1px solid rgba(166, 116, 255, 0.1);
+}
+
+.library-header h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(166, 116, 255, 0.6);
+  margin-bottom: 0.5rem;
+  background: none;
+  box-shadow: none;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', serif;
+  position: relative;
+  display: inline-block;
+}
+
+.library-header h1::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 3px;
+  bottom: -10px;
+  left: 20%;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+}
+
+.library-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  margin: 1.5rem auto;
+  max-width: 600px;
+  font-style: italic;
+}
+
+.library-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+  position: relative;
+}
+
+.library-shelf {
+  margin: 2rem 0 4rem;
+  position: relative;
+}
+
+.shelf-label {
+  margin-bottom: 2rem;
+  position: relative;
+  text-align: center;
+}
+
+.shelf-label span {
+  display: inline-block;
+  padding: 0 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  background: #121921;
+  position: relative;
+  z-index: 5;
+}
+
+.shelf-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(166, 116, 255, 0.3), transparent);
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.book-collection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3.5rem;
+  perspective: 1000px;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  background: linear-gradient(to bottom, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(166, 116, 255, 0.15);
+  animation: fadeInUp 0.8s ease-out;
+  transform: rotateY(5deg);
+  position: relative;
+}
+
+.book-card:nth-child(even) {
+  transform: rotateY(-5deg);
+}
+
+.book-card:hover {
+  transform: rotateY(0) translateY(-15px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(166, 116, 255, 0.4);
+  z-index: 10;
+}
+
+.book-cover {
+  position: relative;
+  overflow: hidden;
+  height: 450px;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.book-card:hover .book-cover img {
+  transform: scale(1.05);
+}
+
+.book-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.03) 40%, 
+    rgba(255, 255, 255, 0.15) 48%, 
+    rgba(255, 255, 255, 0.03) 56%, 
+    rgba(255, 255, 255, 0) 100%);
+  transform: translateX(-100%);
+  animation: shineEffect 5s infinite ease-in-out;
+}
+
+.book-card:hover .book-shine {
+  animation: shineEffect 2.5s infinite ease-in-out;
+}
+
+.book-info {
+  padding: 1.8rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.book-info h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.7rem;
+  color: #fff;
+  border-bottom: none;
+  display: block;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.book-author {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.book-description {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(166, 116, 255, 0.1);
+}
+
+.book-description p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.book-tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}

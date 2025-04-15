@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, redirect, url_for, request
+from flask import Flask, render_template, session, redirect, url_for, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import matplotlib
@@ -24,7 +24,7 @@ class User(db.Model):
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    chapter_title = db.Column(db.String(200))  # <- Add this
+    chapter_title = db.Column(db.String(200))
     content = db.Column(db.Text, nullable=False)  # 1 page per row
 
 class UserProgress(db.Model):
@@ -46,9 +46,10 @@ def index():
             session['username'] = username
             return redirect(url_for('select_book'))
         else:
-            return render_template('login.html', invalid=True)
+            # Return with error message instead of invalid flag
+            return render_template('login.html', error="Invalid username or password. Please try again.")
 
-    return render_template('login.html', invalid=False)
+    return render_template('login.html')
 
 
 @app.route('/dashboard')
@@ -203,7 +204,7 @@ def signup():
         # Check if user already exists
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            return "Username already exists!"
+            return render_template('signup.html', error="Username already exists. Please choose a different username.")
 
         # Create new user
         new_user = User(username=username, password=password)
@@ -215,6 +216,74 @@ def signup():
         return redirect(url_for('select_book'))
 
     return render_template('signup.html')
+
+# New API endpoint for search
+@app.route('/api/search')
+def search_books():
+    search_query = request.args.get('q', '').lower()  # Convert to lowercase for case-insensitive comparison
+    print(f"Search query received: '{search_query}'")
+    
+    # Get all unique book titles
+    all_titles = [book.title for book in Book.query.with_entities(Book.title).distinct().all()]
+    
+    # If no search query, return all books
+    if not search_query.strip():
+        return jsonify({"titles": all_titles})
+    
+    # Initialize filtered titles list
+    filtered_titles = []
+    
+    # First check the books table for matches in title, chapter_title, and content
+    sql_filtered_books = db.session.query(Book.title).distinct().filter(
+        db.or_(
+            Book.title.ilike(f'%{search_query}%'),  # ilike already ignores case
+            Book.chapter_title.ilike(f'%{search_query}%'),
+            Book.content.ilike(f'%{search_query}%')
+        )
+    ).all()
+    
+    # Add SQL-filtered titles
+    for book in sql_filtered_books:
+        if book.title not in filtered_titles:
+            filtered_titles.append(book.title)
+    
+    # Data for front-end matching of author and tags (which are in HTML, not DB)
+    frontend_data = {
+        "Aesop's Fables": {
+            "author": "B.B. Gallagher",
+            "translator": "",  # No translator for this book
+            "tags": ["Fables", "Morals", "Animals", "Wisdom", "Greek"]  # Added "Greek" tag
+        },
+        "Panchatantra": {
+            "author": "Vishnu Sharma",
+            "translator": "Arthur William Ryder",
+            "tags": ["Indian", "Wisdom", "Animals", "Morals", "Sanskrit"]  # Added "Sanskrit" tag
+        }
+    }
+    
+    # Additionally filter based on frontend data (authors, translators, and tags)
+    for title, data in frontend_data.items():
+        # Skip if already in results
+        if title in filtered_titles:
+            continue
+            
+        # Check author - case insensitive
+        if search_query in data["author"].lower():
+            filtered_titles.append(title)
+            continue
+        
+        # Check translator (if any) - case insensitive
+        if data["translator"] and search_query in data["translator"].lower():
+            filtered_titles.append(title)
+            continue
+            
+        # Check tags - case insensitive comparison
+        for tag in data["tags"]:
+            if search_query == tag.lower() or tag.lower().startswith(search_query):
+                filtered_titles.append(title)
+                break
+    
+    return jsonify({"titles": filtered_titles})
     
 @app.route('/select_book')
 def select_book():
@@ -222,10 +291,13 @@ def select_book():
     if not username:
         return redirect(url_for('index'))
 
-    books = Book.query.with_entities(Book.title).distinct().all()
-    return render_template('select_book.html', books=books)
+    # Get all books to display initially
+    all_books = Book.query.with_entities(Book.title).distinct().all()
+    book_titles = [book.title for book in all_books]
+    
+    return render_template('select_book.html', all_titles=book_titles)
 
-# New logout route
+# Logout route
 @app.route('/logout')
 def logout():
     # Clear the session
@@ -239,30 +311,47 @@ def settings():
         return redirect(url_for('index'))
 
     user = User.query.filter_by(username=username).first()
+    if not user:
+        return redirect(url_for('index'))
+
+    # Get the referrer URL (where the user came from)
+    referrer = request.referrer
+    
+    # If no referrer or it's from settings page itself, default to select_book
+    if not referrer or 'settings' in referrer:
+        referrer = url_for('select_book')
 
     if request.method == 'POST':
         # Password Change Logic
         if 'change_password' in request.form:
             current_password = request.form['password']
-            new_password = request.form['new_password']  # this is the new password
-            confirm_password = request.form['confirm_password']  # this is to confirm the new password
+            new_password = request.form['new_password']
+            confirm_password = request.form['confirm_password']
 
             # Check if the current password matches the user's existing password in the database
             if user.password != current_password:
-                return render_template('settings.html', error="Incorrect current password.")
+                return render_template('settings.html', error="Incorrect current password.", referrer=referrer)
 
             # Check if the new password matches the confirmation password
             if new_password != confirm_password:
-                return render_template('settings.html', error="New password and confirmation do not match.")
+                return render_template('settings.html', error="New password and confirmation do not match.", referrer=referrer)
 
             # If everything is fine, update the password
             user.password = new_password
             db.session.commit()
 
-            return render_template('settings.html', message="Password updated successfully.")
+            return render_template('settings.html', message="Password updated successfully.", referrer=referrer)
 
         # Account Deletion Logic
         elif 'delete_profile' in request.form:
+            # Get password from form
+            password = request.form['password']
+            
+            # Verify password matches the current user's password
+            if user.password != password:
+                return render_template('settings.html', error="Incorrect password. Account deletion failed.", referrer=referrer)
+            
+            # If password is correct, proceed with deletion
             # Delete associated progress data before deleting the user
             UserProgress.query.filter_by(user_id=user.id).delete()
 
@@ -274,13 +363,7 @@ def settings():
             session.pop('username', None)
             return redirect(url_for('index'))
 
-    return render_template('settings.html')
+    return render_template('settings.html', referrer=referrer)
 
-
-
-
-
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)

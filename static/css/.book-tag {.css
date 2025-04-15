@@ -1,0 +1,261 @@
+.book-tag {
+  padding: 0.3rem 0.8rem;
+  background: rgba(166, 116, 255, 0.15);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  border: 1px solid rgba(166, 116, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.book-card:hover .book-tag {
+  background: rgba(166, 116, 255, 0.25);
+}
+
+.read-button {
+  display: block;
+  margin-top: 1rem;
+}
+
+.read-button button {
+  width: 100%;
+  padding: 12px 0;
+  background: linear-gradient(135deg, #8a2be2, #3758f9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.read-button button:hover {
+  background: linear-gradient(135deg, #9b4dff, #4768ff);
+  box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+  transform: translateY(-3px);
+}
+
+.read-button button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: rotate(45deg);
+  transition: all 0.5s;
+}
+
+.read-button button:hover::after {
+  animation: shineEffect 1.5s;
+}
+
+.library-footer {
+  text-align: center;
+  margin-top: 5rem;
+  padding: 2rem 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  font-size: 1rem;
+  border-top: 1px solid rgba(166, 116, 255, 0.1);
+}
+
+/* Search container for library */
+.search-container {
+  margin: 2rem auto;
+  max-width: 500px;
+  padding: 0 1rem;
+}
+
+.search-bar {
+  width: 100%;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(166, 116, 255, 0.2);
+}
+
+.search-bar input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(166, 116, 255, 0.3);
+  border-color: rgba(166, 116, 255, 0.4);
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+/* Animations */
+@keyframes dotMove {
+  0% { background-position: 50px 50px, 65px 65px; }
+  100% { background-position: 0 0, 15px 15px; }
+}
+
+@keyframes slowGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes progressAnimation {
+  from { width: 0; }
+  to { width: var(--progress-width, 65%); }
+}
+
+@keyframes progressGlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-100px) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
+
+@keyframes shineEffect {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .graph-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons, .reading-buttons {
+    flex-direction: column;
+  }
+  
+  .action-buttons a, .reading-buttons a {
+    width: 100%;
+  }
+  
+  .book-collection {
+    gap: 2.5rem;
+  }
+  
+  .book-card {
+    width: 320px;
+  }
+  
+  .book-cover {
+    height: 400px;
+  }
+  
+  .library-header h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    padding: 1rem;
+  }
+  
+  .login-box, .signup-box, .page-box {
+    padding: 1.8rem;
+  }
+
+  .settings-container {
+    width: 95%;
+  }
+  
+  .settings-content {
+    padding: 1.5rem;
+  }
+
+  .settings-header h1 {
+    font-size: 2rem;
+  }
+  
+  .profile-btn {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .back-btn {
+    margin-bottom: 1.5rem;
+  }
+  
+  .library-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .library-subtitle {
+    font-size: 1rem;
+  }
+  
+  .book-card {
+    width: 100%;
+    transform: none !important;
+  }
+  
+  .book-cover {
+    height: 350px;
+  }
+  
+  .library-footer {
+    margin-top: 3rem;
+  }
+}

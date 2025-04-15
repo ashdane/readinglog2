@@ -3,30 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select a Book</title>
+    <title>Reading Library</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <style>
-        .logout-btn { position: absolute; top: 20px; right: 20px; width: auto; }
-        .logout-btn button { background: rgba(255,90,95,0.8); padding: 10px 20px; }
+        .search-bar {
+            display: flex;
+            width: 100%;
+        }
+        .search-bar input {
+            flex: 1;
+            border-radius: var(--border-radius);
+        }
+        .book-card {
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
-<body>
-    <!-- Logout button in top right corner -->
-    <a href="{{ url_for('logout') }}" class="logout-btn"><button type="button">Logout</button></a>
-
-    <h1>Select a Book</h1>
+<body class="library-page">
+    <!-- Profile button in top right corner -->
+    <a href="{{ url_for('settings') }}" class="profile-btn"><button type="button">Profile</button></a>
     
-    <div class="book-selection glass-box">
-        <ul class="book-list">
-            {% for book in books %}
-            <li class="book-item">
-                <form action="{{ url_for('dashboard') }}" method="get">
-                    <input type="hidden" name="title" value="{{ book[0] }}">
-                    <button type="submit">{{ book[0] }}</button>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
+    <div class="library-header">
+        <h1>Your Reading Sanctuary</h1>
+        <p class="library-subtitle">Explore timeless wisdom through classic stories</p>
+        
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="book-search" placeholder="Search books by title, author, translator, or tags...">
+            </div>
+        </div>
     </div>
+    
+    <div class="library-container">
+        <!-- Library shelves -->
+        <div class="library-shelf">
+            <div class="shelf-label">
+                <span>Classic Tales</span>
+                <div class="shelf-divider"></div>
+            </div>
+            
+            <div class="book-collection" id="book-collection">
+                <div class="book-card" data-title="Aesop's Fables" data-author="B.B. Gallagher" data-translator="" data-tags="Fables,Morals,Animals,Wisdom,Greek">
+                    <div class="book-cover">
+                        <img src="{{ url_for('static', filename='images/aesops-fables.jpg') }}" alt="Aesop's Fables">
+                        <div class="book-shine"></div>
+                    </div>
+                    <div class="book-info">
+                        <h2>Aesop's Fables</h2>
+                        <p class="book-author">Adapted by B.B. Gallagher</p>
+                        <div class="book-description">
+                            <p>Ancient stories featuring animals with human characteristics that teach timeless moral lessons.</p>
+                        </div>
+                        <div class="book-tags">
+                            <span class="book-tag">Fables</span>
+                            <span class="book-tag">Morals</span>
+                            <span class="book-tag">Animals</span>
+                            <span class="book-tag">Wisdom</span>
+                            <span class="book-tag">Greek</span>
+                        </div>
+                        <a href="{{ url_for('dashboard', title='Aesop\'s Fables') }}" class="read-button">
+                            <button type="button">Read Now</button>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="book-card" data-title="Panchatantra" data-author="Vishnu Sharma" data-translator="Arthur William Ryder" data-tags="Indian,Wisdom,Animals,Morals,Sanskrit">
+                    <div class="book-cover">
+                        <img src="{{ url_for('static', filename='images/panchatantra.jpg') }}" alt="Panchatantra">
+                        <div class="book-shine"></div>
+                    </div>
+                    <div class="book-info">
+                        <h2>Panchatantra</h2>
+                        <p class="book-author">By Vishnu Sharma (Translated by Arthur William Ryder)</p>
+                        <div class="book-description">
+                            <p>Ancient Indian collection of interrelated animal fables in Sanskrit verse and prose that teach wisdom through stories.</p>
+                        </div>
+                        <div class="book-tags">
+                            <span class="book-tag">Indian</span>
+                            <span class="book-tag">Wisdom</span>
+                            <span class="book-tag">Animals</span>
+                            <span class="book-tag">Morals</span>
+                            <span class="book-tag">Sanskrit</span>
+                        </div>
+                        <a href="{{ url_for('dashboard', title='Panchatantra') }}" class="read-button">
+                            <button type="button">Read Now</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="no-results" class="no-results" style="display: none;">
+                <p>No books match your search. Try different keywords.</p>
+            </div>
+        </div>
+        
+        <div class="library-footer">
+            <p>"Reading is to the mind what exercise is to the body." - Joseph Addison</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('book-search');
+            const bookCards = document.querySelectorAll('.book-card');
+            const bookCollection = document.getElementById('book-collection');
+            const noResults = document.getElementById('no-results');
+            let timeout = null;
+            
+            // Function to perform server-side search
+            function performSearch(query) {
+                // Clear any pending timeouts
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                
+                // Set a timeout to avoid excessive requests while typing
+                timeout = setTimeout(() => {
+                    // Make an AJAX request to the server
+                    fetch(`/api/search?q=${encodeURIComponent(query.toLowerCase())}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const titles = data.titles;
+                            let resultsFound = false;
+                            
+                            // Loop through all book cards
+                            bookCards.forEach(card => {
+                                const title = card.dataset.title;
+                                
+                                // If title is in the returned list or search is empty
+                                if (titles.includes(title)) {
+                                    card.style.display = 'flex';
+                                    resultsFound = true;
+                                } else {
+                                    card.style.display = 'none';
+                                }
+                            });
+                            
+                            // Show or hide "no results" message
+                            if (resultsFound) {
+                                noResults.style.display = 'none';
+                            } else {
+                                noResults.style.display = 'block';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error performing search:', error);
+                        });
+                }, 300); // 300ms delay is usually a good compromise
+            }
+            
+            // Listen for input event on search box
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim();
+                performSearch(query);
+            });
+            
+            // Initial check for any existing query
+            if (searchInput.value.trim()) {
+                performSearch(searchInput.value.trim());
+            }
+        });
+    </script>
 </body>
 </html>
