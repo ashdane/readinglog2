@@ -6,9 +6,7 @@
   <title>Settings - Reading Log</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
-<!-- Apply class based on the referring page -->
 <body class="{{ 'library-page' if 'select_book' in referrer else 'dashboard-page' if 'dashboard' in referrer else 'reading-page' if 'read' in referrer else '' }}">
-  <!-- Updated back button to use the referrer URL -->
   <a href="{{ referrer }}" class="profile-btn back-btn">
     <button type="button">← Back</button>
   </a>
@@ -19,17 +17,8 @@
     </div>
     
     <div class="settings-content">
-      {% if message %}
-      <div class="alert alert-success">
-        {{ message }}
-      </div>
-      {% endif %}
-      
-      {% if error %}
-      <div class="alert alert-danger">
-        {{ error }}
-      </div>
-      {% endif %}
+      {% if message %}<div class="alert alert-success">{{ message }}</div>{% endif %}
+      {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
     
       <form action="{{ url_for('settings') }}" method="POST" class="form-section">
         <h2>Change Password</h2>
@@ -50,8 +39,10 @@
         </div>
         
         <div class="action-buttons">
-          <button type="submit" name="change_password" class="success-btn">Update Password</button>
-          <a href="{{ url_for('settings') }}"><button type="button" class="cancel-btn">Cancel</button></a>
+          <button type="submit" name="change_password" class="success-btn {{ 'dashboard-style' if 'dashboard' in referrer else 'reading-style' if 'read' in referrer else 'library-style' if 'select_book' in referrer else '' }}">Update Password</button>
+          <a href="{{ url_for('settings') }}" class="{{ 'settings-dashboard-page' if 'dashboard' in referrer else 'settings-reading-page' if 'read' in referrer else 'settings-library-page' if 'select_book' in referrer else '' }}">
+            <button type="button" class="cancel-btn {{ 'dashboard-style' if 'dashboard' in referrer else 'reading-style' if 'read' in referrer else 'library-style' if 'select_book' in referrer else '' }}">Cancel</button>
+          </a>
         </div>
       </form>
       
@@ -74,7 +65,7 @@
           </div>
           
           <div class="action-buttons">
-            <button type="submit" name="delete_profile" class="delete-btn">Delete My Account</button>
+            <button type="submit" name="delete_profile" class="delete-btn {{ 'dashboard-style' if 'dashboard' in referrer else 'reading-style' if 'read' in referrer else 'library-style' if 'select_book' in referrer else '' }}">Delete My Account</button>
           </div>
         </form>
       </div>

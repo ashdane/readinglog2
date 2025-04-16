@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap');
+
 :root {
   --primary-color: #1a1a2e;
   --secondary-color: #16213e;
@@ -12,20 +13,22 @@
   --border-radius: 10px;
   --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) fixed;
   color: var(--text-color);
   min-height: 100vh;
   line-height: 1.6;
   padding: 20px;
-  background-attachment: fixed;
 }
+
 /* dot background pattern */
 body::before {
   content: '';
@@ -42,6 +45,7 @@ body::before {
   z-index: -1;
   animation: dotMove 80s linear infinite;
 }
+
 /* Typography */
 h1, h2, h3, h4, h5 {
   font-family: 'Montserrat', sans-serif;
@@ -50,6 +54,7 @@ h1, h2, h3, h4, h5 {
   color: var(--text-color);
   text-shadow: 0 0 10px rgba(166, 116, 255, 0.3);
 }
+
 h1 {
   font-size: 2.2rem;
   text-align: center;
@@ -59,24 +64,29 @@ h1 {
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
+
 h2 {
   font-size: 1.8rem;
   padding-bottom: 0.8rem;
   border-bottom: 2px solid var(--accent-color);
   display: inline-block;
 }
+
 a {
   color: var(--accent-color);
   text-decoration: none;
   transition: all 0.3s ease;
 }
+
 a:hover {
   filter: brightness(1.2);
   transform: translateY(-3px);
 }
+
 p {
   margin-bottom: 1rem;
 }
+
 /* Common box styles */
 .glass-box {
   background: rgba(26, 26, 46, 0.8);
@@ -87,16 +97,19 @@ p {
   animation: fadeIn 0.6s ease-out;
   transition: transform 0.4s ease;
 }
+
 .glass-box:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
+
 /* Container layouts */
 .container, .dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
+
 .login-box, .signup-box {
   max-width: 450px;
   width: 90%;
@@ -105,6 +118,7 @@ p {
   padding: 2.5rem;
   animation: fadeInUp 0.8s ease-out;
 }
+
 .page-box {
   max-width: 800px;
   width: 90%;
@@ -115,12 +129,14 @@ p {
   border: 1px solid rgba(166, 116, 255, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
+
 .book-selection {
   max-width: 700px;
   margin: 0 auto;
   padding: 2rem;
 }
 
+/* Form elements */
 input[type="text"],
 input[type="password"],
 input[type="email"] {
@@ -136,12 +152,14 @@ input[type="email"] {
   font-family: inherit;
   font-size: 1rem;
 }
+
 input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.15);
   border-left: 3px solid var(--accent-color);
   box-shadow: 0 0 20px rgba(166, 116, 255, 0.4);
 }
+
 button, .btn {
   background: linear-gradient(135deg, #8a2be2, #3758f9);
   color: white;
@@ -157,10 +175,12 @@ button, .btn {
   box-shadow: 0 6px 20px rgba(89, 86, 213, 0.4);
   font-family: 'Montserrat', sans-serif;
 }
+
 button:hover, .btn:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(89, 86, 213, 0.6);
 }
+
 /* Dashboard components */
 .stats-area {
   display: grid;
@@ -173,6 +193,7 @@ button:hover, .btn:hover {
   border: 1px solid rgba(166, 116, 255, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
+
 .stat-card {
   background: rgba(26, 26, 46, 0.8);
   padding: 1.2rem;
@@ -181,24 +202,29 @@ button:hover, .btn:hover {
   transition: transform 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
 .stat-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
+
 .stat-label {
   font-size: 0.9rem;
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
+
 .stat-value {
   font-size: 1.6rem;
   font-weight: 700;
 }
+
 .graph-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 2rem;
 }
+
 .graph-container {
   background: rgba(33, 33, 53, 0.5);
   border-radius: var(--border-radius);
@@ -207,6 +233,7 @@ button:hover, .btn:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(166, 116, 255, 0.2);
 }
+
 .graph-container img {
   max-width: 100%;
   height: auto;
@@ -215,9 +242,11 @@ button:hover, .btn:hover {
   padding: 1rem;
   transition: transform 0.3s ease;
 }
+
 .graph-container img:hover {
   transform: scale(1.02);
 }
+
 /* Book selection */
 .book-list {
   list-style-type: none;
@@ -225,6 +254,7 @@ button:hover, .btn:hover {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
 }
+
 .book-item button {
   height: 100px;
   display: flex;
@@ -233,6 +263,7 @@ button:hover, .btn:hover {
   text-align: center;
   width: 100%;
 }
+
 /* Button containers */
 .action-buttons, .buttons, .reading-buttons {
   display: flex;
@@ -241,13 +272,16 @@ button:hover, .btn:hover {
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .action-buttons a, .buttons a, .reading-buttons form {
   flex: 1;
   min-width: 150px;
 }
+
 .action-buttons button, .buttons button, .reading-buttons button {
   width: 100%;
 }
+
 /* Progress bar */
 .progress-container {
   width: 100%;
@@ -259,6 +293,7 @@ button:hover, .btn:hover {
   position: relative;
   box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
 }
+
 .progress-bar {
   height: 100%;
   background: linear-gradient(135deg, #8a2be2, #3758f9);
@@ -267,6 +302,7 @@ button:hover, .btn:hover {
   position: relative;
   animation: progressAnimation 2s ease-out;
 }
+
 .progress-bar::after {
   content: '';
   position: absolute;
@@ -277,6 +313,7 @@ button:hover, .btn:hover {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   animation: progressGlow 2.5s infinite;
 }
+
 .progress-text {
   position: absolute;
   top: 50%;
@@ -288,6 +325,7 @@ button:hover, .btn:hover {
   z-index: 1;
   font-size: 0.9rem;
 }
+
 /* Finished reading message */
 .finished-text {
   font-size: 1.3rem;
@@ -298,6 +336,7 @@ button:hover, .btn:hover {
   animation: pulse 2s infinite;
   text-shadow: 0 0 10px rgba(107, 255, 141, 0.5);
 }
+
 /* Enhanced reading page styling */
 .page-title {
   font-size: 2.2rem;
@@ -311,6 +350,7 @@ button:hover, .btn:hover {
   background-clip: text;
   color: transparent;
 }
+
 .page-content {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -323,6 +363,7 @@ button:hover, .btn:hover {
   animation: slowGradient 20s ease infinite;
   color: white;
 }
+
 .page-content p:first-of-type::first-letter {
   font-size: 3rem;
   float: left;
@@ -332,21 +373,25 @@ button:hover, .btn:hover {
   font-weight: bold;
   text-shadow: 0 0 5px rgba(166, 116, 255, 0.5);
 }
+
 .reading-buttons {
   display: flex;
   justify-content: space-between;
   gap: 15px;
   margin: 2rem 0 1rem;
 }
+
 .reading-buttons button {
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
 }
+
 .reading-buttons button:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(166, 116, 255, 0.5);
 }
+
 .reading-buttons button:before {
   content: '';
   position: absolute;
@@ -357,10 +402,12 @@ button:hover, .btn:hover {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transform: translateX(-100%);
 }
+
 .reading-buttons button:hover:before {
   animation: shine 1.5s infinite;
 }
-/* Profile button */
+
+/* Profile & navigation buttons */
 .profile-btn {
   position: absolute;
   top: 20px;
@@ -368,20 +415,24 @@ button:hover, .btn:hover {
   width: auto;
   z-index: 100;
 }
+
 .profile-btn button {
   background: linear-gradient(135deg, #7e57c2, #4a00e0);
   padding: 10px 20px;
   width: auto;
 }
+
 .profile-btn button:hover {
   background: linear-gradient(135deg, #8a67d8, #5c16ff);
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(92, 69, 224, 0.5);
 }
+
 .back-btn {
   left: 20px;
   right: auto;
 }
+
 /* Secondary button row - centered Home button */
 .secondary-buttons {
   display: flex;
@@ -390,14 +441,17 @@ button:hover, .btn:hover {
   width: 100%;
   text-align: center;
 }
+
 .secondary-buttons a {
   width: auto;
   margin: 0 auto;
 }
+
 .secondary-buttons button {
   min-width: 180px;
   background: linear-gradient(135deg, #7e57c2, #4a00e0);
 }
+
 .secondary-buttons button:hover {
   background: linear-gradient(135deg, #8a67d8, #5c16ff);
 }
@@ -412,7 +466,6 @@ button:hover, .btn:hover {
   border-radius: var(--border-radius);
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45), 0 0 30px rgba(166, 116, 255, 0.3);
   border: 1px solid rgba(166, 116, 255, 0.3);
-  transform: none;
 }
 
 .settings-container:hover {
@@ -441,12 +494,12 @@ button:hover, .btn:hover {
   background: rgba(26, 26, 46, 0.95);
 }
 
-.form-section {
+.form-section, .logout-section {
   margin-bottom: 2.5rem;
   animation: fadeIn 0.5s ease-out;
 }
 
-.form-section h2 {
+.form-section h2, .logout-section h2 {
   color: var(--accent-color);
   font-size: 1.6rem;
   margin-bottom: 1.5rem;
@@ -469,68 +522,49 @@ label {
 /* Colored buttons for settings page */
 .success-btn {
   background: linear-gradient(135deg, var(--success-color), #20c997);
-  transition: all 0.3s ease;
 }
 
 .success-btn:hover {
   background: linear-gradient(135deg, #2fd151, #25e0ab);
-  transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5);
 }
 
 .cancel-btn {
   background: linear-gradient(135deg, var(--danger-color), var(--warning-color));
-  transition: all 0.3s ease;
 }
 
 .cancel-btn:hover {
   background: linear-gradient(135deg, #e74c3c, #fd9644);
-  transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(220, 53, 69, 0.5);
 }
 
 .delete-btn {
   background: linear-gradient(135deg, var(--danger-color), #ff4d5a);
-  transition: all 0.3s ease;
 }
 
 .delete-btn:hover {
   background: linear-gradient(135deg, #e04758, #ff667a);
-  transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(220, 53, 69, 0.5);
 }
 
 .logout-button {
   background: linear-gradient(135deg, var(--dark-color), #495057);
-  transition: all 0.3s ease;
 }
 
 .logout-button:hover {
   background: linear-gradient(135deg, #7d8892, #57606a);
-  transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(108, 117, 125, 0.5);
 }
 
 /* Logout section styling */
 .logout-section {
-  margin: 2.5rem 0;
   padding: 1.5rem;
   border-radius: var(--border-radius);
   background: rgba(33, 33, 53, 0.5);
   border: 1px solid rgba(166, 116, 255, 0.2);
-  animation: fadeIn 0.5s ease-out;
 }
 
-.logout-section h2 {
-  color: var(--accent-color);
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 2px solid var(--accent-color);
-  display: inline-block;
-}
-
-.logout-section p {
+.logout-section p, .danger-zone p {
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
@@ -549,12 +583,6 @@ label {
 .danger-zone h2 {
   color: rgba(255, 90, 95, 1);
   border-bottom-color: rgba(255, 90, 95, 0.5);
-}
-
-.danger-zone p {
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
 }
 
 /* Alert messages */
@@ -578,7 +606,6 @@ label {
 }
 
 /* Login page special styling */
-/* New Premium Login Styling */
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -703,7 +730,7 @@ label {
   border-radius: 10px;
 }
 
-/* Updated sophisticated header */
+/* Login header styling */
 .login-header {
   margin-bottom: 2rem;
   padding-bottom: 0;
@@ -741,29 +768,6 @@ label {
   font-size: 0.95rem;
   font-weight: 400;
   margin-top: 0.5rem;
-}
-
-.alert-danger {
-  color: #e53e3e;
-  background-color: #fff5f5;
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  text-align: center;
-  border: 1px solid #feb2b2;
-}
-
-.form-group {
-  margin-bottom: 1.25rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.4rem;
-  color: #2d3748;
-  font-weight: 500;
-  font-size: 0.9rem;
 }
 
 .input-container {
@@ -945,62 +949,6 @@ label {
   overflow-y: visible;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .login-container {
-    flex-direction: column;
-    max-width: 450px;
-    height: auto;
-  }
-  
-  .login-visual-side {
-    min-height: 160px;
-    padding: 1.5rem;
-  }
-  
-  .brand-content {
-    transform: translateY(0);
-  }
-  
-  .brand-title {
-    font-size: 2rem;
-  }
-  
-  .login-form-side {
-    height: auto;
-  }
-  
-  .form-content-wrapper {
-    padding: 1.8rem 1.8rem 1rem 1.8rem;
-    max-height: 450px;
-  }
-  
-  .alt-action-wrapper {
-    padding: 1rem 1.8rem;
-  }
-}
-
-@media (max-width: 500px) {
-  .login-page {
-    padding: 1rem;
-  }
-  
-  .login-visual-side {
-    min-height: 130px;
-  }
-  
-  .login-header h1 {
-    font-size: 1.7rem;
-  }
-  
-  .signup-page .login-header h1 {
-    font-size: 1.6rem;
-  }
-  
-  .form-content-wrapper {
-    padding: 1.5rem 1.5rem 1rem 1.5rem;
-  }
-}
 /* Enhanced Library Page Styling */
 .library-page {
   background: linear-gradient(135deg, #23292f, #121921);
@@ -1331,9 +1279,8 @@ label {
 }
 
 @keyframes slowGradient {
-  0% { background-position: 0% 50%; }
+  0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 @keyframes progressAnimation {
@@ -1357,26 +1304,13 @@ label {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
+  0%, 100% { transform: scale(1); }
   50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
 }
 
 @keyframes shine {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes float {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-100px) rotate(180deg); }
-  100% { transform: translateY(0) rotate(360deg); }
 }
 
 @keyframes shineEffect {
@@ -1474,5 +1408,16 @@ label {
   .library-footer {
     margin-top: 3rem;
   }
-}
 
+  .login-header h1 {
+    font-size: 1.7rem;
+  }
+  
+  .signup-page .login-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .form-content-wrapper {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+  }
+}
