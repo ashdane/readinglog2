@@ -8,7 +8,6 @@
    
 </head>
 <body>
-    <!-- Profile button in top right corner (replacing Logout) -->
     <a href="{{ url_for('settings') }}" class="profile-btn"><button type="button">Profile</button></a>
     
     <div class="page-box glass-box">
@@ -19,7 +18,6 @@
         <div class="page-content">{{ page.content }}</div>
 
         <div class="reading-buttons">
-            <!-- Previous/Next Page buttons -->
             {% if previous_page %}
                 <a href="{{ url_for('read', page_no=previous_page) }}"><button type="button">← Previous Page</button></a>
             {% else %}
@@ -32,11 +30,9 @@
                 <p class="finished-text">🎉 You've finished reading!</p>
             {% endif %}
 
-            <!-- Dashboard button -->
             <a href="{{ url_for('dashboard', title=page.title) }}"><button type="button">Go to Dashboard</button></a>
         </div>
         
-        <!-- Centered Home button -->
         <div class="secondary-buttons">
             <a href="{{ url_for('select_book') }}"><button type="button">Home</button></a>
         </div>

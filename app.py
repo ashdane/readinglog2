@@ -16,13 +16,13 @@ app.secret_key = 'supersecretkey'
 
 db = SQLAlchemy(app)
 
-# User table
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
-#Book table for storing pages - now with metadata fields
+
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -30,7 +30,7 @@ class Book(db.Model):
     content = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(100), default="Unknown")
     translator = db.Column(db.String(100), default="")
-#Table to track user reading progress
+
 class UserProgress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -38,27 +38,24 @@ class UserProgress(db.Model):
     page_no = db.Column(db.Integer, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     
-# Table for book tags
+
 class BookTag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_title = db.Column(db.String(100), nullable=False)
     tag = db.Column(db.String(50), nullable=False)
 
-# Add sample book info to database
+
 def init_db_metadata():
-    # First, check if the columns exist and add them if they don't
     try:
-        # Check if columns already exist
         with db.engine.connect() as conn:
             result = conn.execute(text("PRAGMA table_info(book)"))
             columns = [row[1] for row in result.fetchall()]
             
-            # Add author column if it doesn't exist
+
             if 'author' not in columns:
                 conn.execute(text("ALTER TABLE book ADD COLUMN author VARCHAR(100) DEFAULT 'Unknown'"))
                 print("Added author column to Book table")
-            
-            # Add translator column if it doesn't exist
+
             if 'translator' not in columns:
                 conn.execute(text("ALTER TABLE book ADD COLUMN translator VARCHAR(100) DEFAULT ''"))
                 print("Added translator column to Book table")
@@ -67,23 +64,20 @@ def init_db_metadata():
     except Exception as e:
         print(f"Error checking/updating columns: {e}")
     
-    # Check if books have authors set
+
     existing_books = Book.query.filter(Book.author != 'Unknown').first()
     
     if existing_books is None:
-        # Update existing Aesop's Fables books with author info
         aesop_books = Book.query.filter_by(title="Aesop's Fables").all()
         for book in aesop_books:
             book.author = "B.B. Gallagher"
             book.translator = ""
-        
-        # Update existing Panchatantra books with author info
+
         panchatantra_books = Book.query.filter_by(title="Panchatantra").all()
         for book in panchatantra_books:
             book.author = "Vishnu Sharma"
             book.translator = "Arthur William Ryder"
-        
-        # Add tags for Aesop's Fables if they don't exist yet
+
         if BookTag.query.filter_by(book_title="Aesop's Fables").first() is None:
             aesop_tags = [
                 BookTag(book_title="Aesop's Fables", tag="Fables"),
@@ -94,8 +88,7 @@ def init_db_metadata():
             ]
             for tag in aesop_tags:
                 db.session.add(tag)
-            
-            # Add tags for Panchatantra
+
             panchatantra_tags = [
                 BookTag(book_title="Panchatantra", tag="Indian"),
                 BookTag(book_title="Panchatantra", tag="Wisdom"),
@@ -109,7 +102,6 @@ def init_db_metadata():
         db.session.commit()
         print("Book info added to database.")
 
-# Login page
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -125,7 +117,6 @@ def index():
 
     return render_template('login.html')
 
-# Stats page showing reading progress
 @app.route('/dashboard')
 def dashboard():
     username = session.get('username')
@@ -220,7 +211,6 @@ def dashboard():
                            avg_pages_per_session=avg_pages_per_session,
                            title=title)
 
-# Reading page that tracks progress
 @app.route('/read/<int:page_no>')
 def read(page_no):
     page = Book.query.get_or_404(page_no)
@@ -248,7 +238,6 @@ def read(page_no):
                            next_page=next_page.id if next_page else None,
                            previous_page=previous_page.id if previous_page else None)
 
-# Clear reading progress
 @app.route('/reset')
 def reset_progress():
     username = session.get('username')
@@ -266,8 +255,7 @@ def reset_progress():
         return redirect(url_for('dashboard', title=current_title))
     
     return redirect(url_for('select_book'))
-
-# Create new account    
+  
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -287,24 +275,23 @@ def signup():
 
     return render_template('signup.html')
 
-# Show book list with info    
+ 
 @app.route('/select_book')
 def select_book():
     username = session.get('username')
     if not username:
         return redirect(url_for('index'))
 
-    # Get search query from URL parameters
+
     search_query = request.args.get('search', '').strip().lower()
     
-    # Start with all books if no search is performed
+
     if not search_query:
-        # Get distinct book titles and their info
         book_data = db.session.query(
             Book.title, Book.author, Book.translator
         ).distinct().all()
         
-        # Create a dictionary of book information
+ 
         books_data = {}
         for book in book_data:
             if book.title not in books_data:
@@ -318,7 +305,6 @@ def select_book():
         
         return render_template('select_book.html', books_data=books_data, search_query='')
     
-    # Search in book titles, authors, translators and content
     title_matches = db.session.query(Book.title, Book.author, Book.translator).filter(
         db.or_(
             Book.title.ilike(f'%{search_query}%'),
@@ -328,20 +314,18 @@ def select_book():
         )
     ).distinct().all()
     
-    # Search in tags
+
     tag_matches = db.session.query(BookTag.book_title).filter(
         BookTag.tag.ilike(f'%{search_query}%')
     ).distinct().all()
-    
-    # Combine results
+
     matching_titles = set([book.title for book in title_matches])
     for tag in tag_matches:
         matching_titles.add(tag.book_title)
     
-    # Get full book data for matches
+
     books_data = {}
     for title in matching_titles:
-        # Get book info
         book = db.session.query(Book.author, Book.translator).filter_by(title=title).first()
         tags = [tag.tag for tag in BookTag.query.filter_by(book_title=title).all()]
         
@@ -353,14 +337,13 @@ def select_book():
     
     return render_template('select_book.html', books_data=books_data, search_query=search_query)
 
-# Log out user
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     session.pop('settings_context', None)
     return redirect(url_for('index'))
 
-# User profile settings
+
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
     username = session.get('username')
@@ -379,7 +362,6 @@ def settings():
         session['settings_context'] = referrer
 
     if request.method == 'POST':
-        # Change password
         if 'change_password' in request.form:
             current_password = request.form['password']
             new_password = request.form['new_password']
@@ -396,7 +378,6 @@ def settings():
 
             return render_template('settings.html', message="Password updated successfully.", referrer=referrer)
 
-        # Delete account
         elif 'delete_profile' in request.form:
             password = request.form['password']
             
@@ -413,7 +394,6 @@ def settings():
 
     return render_template('settings.html', referrer=referrer)
 
-# Set up database tables
 with app.app_context():
     db.create_all()
     init_db_metadata()
