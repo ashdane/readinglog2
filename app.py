@@ -68,7 +68,7 @@ def init_db_metadata():
     existing_books = Book.query.filter(Book.author != 'Unknown').first()
     
     if existing_books is None:
-        aesop_books = Book.query.filter_by(title="Aesop's Fables").all()
+        aesop_books = Book.query.filter_by(title="Aesops-Fables").all()
         for book in aesop_books:
             book.author = "B.B. Gallagher"
             book.translator = ""
@@ -78,13 +78,13 @@ def init_db_metadata():
             book.author = "Vishnu Sharma"
             book.translator = "Arthur William Ryder"
 
-        if BookTag.query.filter_by(book_title="Aesop's Fables").first() is None:
+        if BookTag.query.filter_by(book_title="Aesops-Fables").first() is None:
             aesop_tags = [
-                BookTag(book_title="Aesop's Fables", tag="Fables"),
-                BookTag(book_title="Aesop's Fables", tag="Morals"),
-                BookTag(book_title="Aesop's Fables", tag="Animals"),
-                BookTag(book_title="Aesop's Fables", tag="Wisdom"),
-                BookTag(book_title="Aesop's Fables", tag="Greek")
+                BookTag(book_title="Aesops-Fables", tag="Fables"),
+                BookTag(book_title="Aesops-Fables", tag="Morals"),
+                BookTag(book_title="Aesops-Fables", tag="Animals"),
+                BookTag(book_title="Aesops-Fables", tag="Wisdom"),
+                BookTag(book_title="Aesops-Fables", tag="Greek")
             ]
             for tag in aesop_tags:
                 db.session.add(tag)
